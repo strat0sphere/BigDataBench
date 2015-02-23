@@ -28,5 +28,5 @@ cd ../BigDataGeneratorSuite/Text_datagen/
 #30GB 60 8000 10000
 cd ../../MicroBenchmarks/
 
-${HADOOP_HOME}/bin/hadoop fs -copyFromLocal ${WORK_DIR}/data-MicroBenchmarks/in ${WORK_DIR}/data-MicroBenchmarks/in
+${HADOOP_HOME}/bin/hadoop fs -copyFromLocal ${WORK_DIR}/data-MicroBenchmarks/in /data-MicroBenchmarks/in
 

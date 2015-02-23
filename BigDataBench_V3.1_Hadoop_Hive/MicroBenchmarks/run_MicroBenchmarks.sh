@@ -17,6 +17,9 @@ fi
 WORK_DIR="/BigDataBench"
 echo "WORK_DIR=$WORK_DIR data should be put in $WORK_DIR/data-MicroBenchmarks/in"
 
+echo "Creating HDFS output dir..."
+${HADOOP_HOME}/bin/hadoop fs -mkdir -p /data-MicroBenchmarks/out/
+
 algorithm=( sort grep wordcount)
 if [ -n "$1" ]; then
   choice=$1
@@ -32,18 +35,18 @@ echo "ok. You chose $choice and we'll use ${algorithm[$choice-1]} Workload"
 Workloadtype=${algorithm[$choice-1]} 
 
 if [ "x$Workloadtype" == "xsort" ]; then
-  ${HADOOP_HOME}/bin/hadoop fs -rmr ${WORK_DIR}/data-MicroBenchmarks/out/sort
-  ${HADOOP_HOME}/bin/hadoop jar  ${HADOOP_HOME}/hadoop-examples-*.jar  sort /sort-out  ${WORK_DIR}/data-MicroBenchmarks/out/sort
+  ${HADOOP_HOME}/bin/hadoop fs -rmr /data-MicroBenchmarks/out/sort
+  ${HADOOP_HOME}/bin/hadoop jar  ${HADOOP_HOME}/hadoop-examples-*.jar  sort /data-MicroBenchmarks/in/ /data-MicroBenchmarks/out/sort
 
 elif [ "x$Workloadtype" == "xgrep" ]; then
 
-  ${HADOOP_HOME}/bin/hadoop fs -rmr ${WORK_DIR}/data-MicroBenchmarks/out/grep
-  ${HADOOP_HOME}/bin/hadoop jar  ${HADOOP_HOME}/hadoop-examples-*.jar grep ${WORK_DIR}/data-MicroBenchmarks/in ${WORK_DIR}/data-MicroBenchmarks/out/grep a*xyz
+  ${HADOOP_HOME}/bin/hadoop fs -rmr /data-MicroBenchmarks/out/grep
+  ${HADOOP_HOME}/bin/hadoop jar  ${HADOOP_HOME}/hadoop-examples-*.jar grep /data-MicroBenchmarks/in/ /data-MicroBenchmarks/out/grep a*xyz
 
 elif [ "x$Workloadtype" == "xwordcount" ]; then
 
-  ${HADOOP_HOME}/bin/hadoop fs -rmr ${WORK_DIR}/data-MicroBenchmarks/out/wordcount
-  ${HADOOP_HOME}/bin/hadoop jar  ${HADOOP_HOME}/hadoop-examples-*.jar  wordcount  ${WORK_DIR}/data-MicroBenchmarks/in ${WORK_DIR}/data-MicroBenchmarks/out/wordcount
+  ${HADOOP_HOME}/bin/hadoop fs -rmr /data-MicroBenchmarks/out/wordcount
+  ${HADOOP_HOME}/bin/hadoop jar  ${HADOOP_HOME}/hadoop-examples-*.jar wordcount /data-MicroBenchmarks/in/ /data-MicroBenchmarks/out/wordcount
 
   echo "unknown cluster type: $clustertype"
 fi 
