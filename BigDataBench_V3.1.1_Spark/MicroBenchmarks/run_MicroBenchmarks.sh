@@ -18,7 +18,7 @@ Workloadtype=${algorithm[$choice-1]}
 
 if [ "x$Workloadtype" == "xSort" ]; then
 ${HADOOP_HOME}/bin/hadoop fs -rmr /spark-sort-result
-spark-submit --class cn.ac.ict.bigdatabench.Sort $JAR_FILE /data-MicroBenchmarks /spark-sort-result
+spark-submit --class cn.ac.ict.bigdatabench.Sort $JAR_FILE /data-MicroBenchmarks/in /spark-sort-result
 
 elif [ "x$Workloadtype" == "xGrep" ]; then
 ${HADOOP_HOME}/bin/hadoop fs -rmr /spark-grep-result
@@ -26,6 +26,6 @@ spark-submit --class cn.ac.ict.bigdatabench.Grep $JAR_FILE /data-MicroBenchmarks
 
 elif [ "x$Workloadtype" == "xWordcount" ]; then
 ${HADOOP_HOME}/bin/hadoop fs -rmr /spark-wordcount-result
-spark-submit --class cn.ac.ict.bigdatabench.WordCount $JAR_FILE /data-MicroBenchmarks /spark-wordcount-result
+spark-submit --class cn.ac.ict.bigdatabench.WordCount $JAR_FILE /data-MicroBenchmarks/in /spark-wordcount-result
 
 fi 
